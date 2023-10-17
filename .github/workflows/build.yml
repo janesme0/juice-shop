@@ -17,5 +17,4 @@ jobs:
     - name: FetchSourceCode
       uses: actions/checkout@v3
     - name: Semgrep
-      run: semgrep ci --config=auto 
       run: semgrep ci --suppress-errors
