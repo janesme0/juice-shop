@@ -14,9 +14,10 @@ jobs:
     container:
       image: returntocorp/semgrep
     steps:
-    - uses: actions/checkout@v3
-    - name: Scan and suppress internal errors
-      run: semgrep ci --suppress-errors
+    - name: FetchSourceCode
+      uses: actions/checkout@v3
+    - name: Semgrep
+      run: semgrep ci --config:auto
       
       
 
