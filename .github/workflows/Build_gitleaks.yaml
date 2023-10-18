@@ -1,0 +1,40 @@
+name: build_gitleaks
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  gitleaks:
+    name: gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - name: fetch
+        uses: actions/checkout@v3
+
+      - name: secretscan
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_ENABLE_UPLOAD_ARTIFACT: false
+          GITLEAKS_ENABLE_SUMMARY: true
+          GITLEAKS_NOTIFY_USER_LIST: '@Alie017' 
+        continue-on-error: true
+
+# Environment Variables:
+# GITHUB_TOKEN: This variable is automatically assigned by GitHub when any action gets kicked off. You can read more about the token here. gitleaks-action uses this token to call a GitHub API to comment on PRs.
+# GITLEAKS_LICENSE (required for organizations, not required for user accounts): A gitleaks-action license can be obtained at gitleaks.io. It should be added as an encrypted secret to the repo or to the organization.
+# GITLEAKS_NOTIFY_USER_LIST (optional): A list of GitHub accounts that should be alerted when gitleaks-action detects a leak. An email will be sent by GitHub to the user if their GitHub notification settings permit it. The format should be comma-separated with each username prefixed with @. Ex: @octocat,@zricethezav,@gitleaks. Spaces are okay too.
+# GITLEAKS_ENABLE_COMMENTS (optional): Boolean value that turns on or off PR commenting. Default value is true. Set to false to disable comments.
+# GITLEAKS_CONFIG (optional): Path to a gitleaks configuration file.
+# GITLEAKS_ENABLE_UPLOAD_ARTIFACT (optional): Boolean value that turns on or off uploading a sarif artifact when gitleaks detects secrets. Defaults to true.
+# GITLEAKS_ENABLE_SUMMARY (optional): Boolean value to enable or disable gitleaks job summary. Defaults to true.
+# GITLEAKS_VERSION (optional): A particular Gitleaks version to use (e.g. 8.15.3, no v prefix) or use latest to always use the newest available version. Defaults to a hard-coded version number.
+
+      
+
+      
+
