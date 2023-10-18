@@ -24,6 +24,11 @@ jobs:
         sarif_file: semgrep.sarif
       if: always()
       
+# steps:
+ # - uses: actions/checkout@v3
+ # - name: Scan and suppress internal errors
+  #  run: semgrep ci --suppress-errors
+      
       
 
       
